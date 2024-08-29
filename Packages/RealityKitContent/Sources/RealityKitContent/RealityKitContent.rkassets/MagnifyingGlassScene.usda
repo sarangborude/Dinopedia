@@ -1,0 +1,320 @@
+#usda 1.0
+(
+    customLayerData = {
+        string creator = "Reality Composer Pro Version 1.0 (409.100.15)"
+    }
+    defaultPrim = "Root"
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+def Xform "Root"
+{
+    reorder nameChildren = ["Magnifying_Glass", "MagnifyingGlass", "Material", "InvisibleMaterial"]
+    def Material "InvisibleMaterial"
+    {
+        token outputs:mtlx:surface.connect = </Root/InvisibleMaterial/UnlitSurface.outputs:out>
+        token outputs:realitykit:vertex
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (299.25, 99.5)
+        float2 ui:nodegraph:realitykit:subgraphOutputs:size = (181.5, 99)
+
+        def Shader "UnlitSurface"
+        {
+            uniform token info:id = "ND_realitykit_unlit_surfaceshader"
+            bool inputs:applyPostProcessToneMap
+            bool inputs:hasPremultipliedAlpha
+            float inputs:opacity = 0
+            float inputs:opacityThreshold
+            token outputs:out
+            float2 ui:nodegraph:node:pos = (-2.84375, 106.83984)
+            float2 ui:nodegraph:node:size = (194.5, 181)
+            int ui:nodegraph:node:stackingOrder = 4
+            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:opacity"]
+        }
+    }
+
+    def Cube "MagnifyingGlass" (
+        active = true
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        reorder nameChildren = ["InputTarget", "Collider", "PortalAnchor", "Magnifying_Glass"]
+        rel material:binding = </Root/InvisibleMaterial> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double size = 0.1
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 3, 1)
+        float3 xformOp:translate = (0, 0.15, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def RealityKitComponent "InputTarget"
+        {
+            uniform token info:id = "RealityKit.InputTarget"
+        }
+
+        def RealityKitComponent "Collider"
+        {
+            uint group = 1
+            uniform token info:id = "RealityKit.Collider"
+            uint mask = 4294967295
+            token type = "Default"
+
+            def RealityKitStruct "Shape"
+            {
+                float3 extent = (0.1, 0.1, 0.1)
+                token shapeType = "Box"
+
+                def RealityKitStruct "pose"
+                {
+                    float3 position = (0, 0, 0)
+                }
+            }
+        }
+
+        def Xform "PortalAnchor" (
+            active = true
+        )
+        {
+            quatf xformOp:orient = (0.99999994, 0, 0, 0)
+            float3 xformOp:scale = (0.99999994, 0.3333333, 0.99999994)
+            float3 xformOp:translate = (0, 0.12865734, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def "Magnifying_Glass" (
+            active = true
+            references = @MagnifyingGlass.usdz@
+        )
+        {
+            reorder nameChildren = ["PortalAnchor", "geom"]
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (3, 1, 3)
+            float3 xformOp:translate = (0, -0.050000004, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            over "geom"
+            {
+                over "realistic"
+                {
+                    over "materials"
+                    {
+                        over "magnifying_glass_realistic_01_mat_sg"
+                        {
+                            string inputs:file6:varname (
+                                customData = {
+                                    dictionary realitykit = {
+                                        float2 positionInSubgraph = (333.75, 983.5)
+                                        float2 sizeInSubgraph = (153, 53)
+                                    }
+                                }
+                            )
+                            string inputs:file7:varname (
+                                customData = {
+                                    dictionary realitykit = {
+                                        float2 positionInSubgraph = (545.25, 983.5)
+                                        float2 sizeInSubgraph = (151.5, 53)
+                                    }
+                                }
+                            )
+                            string inputs:file8:varname (
+                                customData = {
+                                    dictionary realitykit = {
+                                        float2 positionInSubgraph = (758.75, 983.5)
+                                        float2 sizeInSubgraph = (153.5, 53)
+                                    }
+                                }
+                            )
+                            string inputs:file9:varname (
+                                customData = {
+                                    dictionary realitykit = {
+                                        float2 positionInSubgraph = (971.75, 983.5)
+                                        float2 sizeInSubgraph = (153, 53)
+                                    }
+                                }
+                            )
+                            string inputs:file15:varname (
+                                customData = {
+                                    dictionary realitykit = {
+                                        float2 positionInSubgraph = (1190.75, 983.5)
+                                        float2 sizeInSubgraph = (159, 53)
+                                    }
+                                }
+                            )
+                            token outputs:realitykit:vertex
+                            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1409.75, 448.5)
+                            float2 ui:nodegraph:realitykit:subgraphOutputs:size = (235.5, 99)
+
+                            over "magnifying_glass_realistic_mat_mtlx"
+                            {
+                                float2 ui:nodegraph:node:pos = (1107, 448.5)
+                                float2 ui:nodegraph:node:size = (250, 199)
+                            }
+
+                            over "file9_mtlx"
+                            {
+                                float2 ui:nodegraph:node:pos = (304.5, 99.5)
+                                float2 ui:nodegraph:node:size = (148.5, 199)
+                            }
+
+                            over "Lookup_st"
+                            {
+                                float2 ui:nodegraph:node:pos = (72.5, 438.5)
+                                float2 ui:nodegraph:node:size = (145, 127)
+                            }
+
+                            over "file9_mtlx_scale"
+                            {
+                                float2 ui:nodegraph:node:pos = (563.5, 99.5)
+                                float2 ui:nodegraph:node:size = (60, 36)
+                            }
+
+                            over "file9_mtlx_offset"
+                            {
+                                float2 ui:nodegraph:node:pos = (822.5, 99.5)
+                                float2 ui:nodegraph:node:size = (61.5, 36.5)
+                            }
+
+                            over "file15_mtlx"
+                            {
+                                float2 ui:nodegraph:node:pos = (563.5, 797.5)
+                                float2 ui:nodegraph:node:size = (148.5, 199)
+                            }
+
+                            over "file6_mtlx"
+                            {
+                                float2 ui:nodegraph:node:pos = (822.5, 628)
+                                float2 ui:nodegraph:node:size = (148.5, 199)
+                            }
+
+                            over "file7_mtlx"
+                            {
+                                float2 ui:nodegraph:node:pos = (563.5, 358.5)
+                                float2 ui:nodegraph:node:size = (148.5, 199)
+                            }
+
+                            over "file8_mtlx"
+                            {
+                                float2 ui:nodegraph:node:pos = (304.5, 528)
+                                float2 ui:nodegraph:node:size = (148.5, 199)
+                            }
+                        }
+
+                        over "magnifying_glass_realistic_01_matsg"
+                        {
+                            string inputs:file20:varname (
+                                customData = {
+                                    dictionary realitykit = {
+                                        float2 positionInSubgraph = (430.5, 794)
+                                        float2 sizeInSubgraph = (161, 53)
+                                    }
+                                }
+                            )
+                            string inputs:file21:varname (
+                                customData = {
+                                    dictionary realitykit = {
+                                        float2 positionInSubgraph = (649.5, 794)
+                                        float2 sizeInSubgraph = (159, 53)
+                                    }
+                                }
+                            )
+                            string inputs:file22:varname (
+                                customData = {
+                                    dictionary realitykit = {
+                                        float2 positionInSubgraph = (870, 794)
+                                        float2 sizeInSubgraph = (160.5, 53)
+                                    }
+                                }
+                            )
+                            string inputs:file23:varname (
+                                customData = {
+                                    dictionary realitykit = {
+                                        float2 positionInSubgraph = (1091, 794)
+                                        float2 sizeInSubgraph = (161, 53)
+                                    }
+                                }
+                            )
+                            token outputs:realitykit:vertex
+                            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1406.75, 251)
+                            float2 ui:nodegraph:realitykit:subgraphOutputs:size = (229.5, 99)
+
+                            over "magnifying_glass_realistic_glass_mat_mtlx"
+                            {
+                                float2 ui:nodegraph:node:pos = (1107, 251)
+                                float2 ui:nodegraph:node:size = (250, 199)
+                            }
+
+                            over "file20_mtlx"
+                            {
+                                float2 ui:nodegraph:node:pos = (304.5, 608)
+                                float2 ui:nodegraph:node:size = (148.5, 199)
+                            }
+
+                            over "Lookup_st"
+                            {
+                                float2 ui:nodegraph:node:pos = (72.5, 332.5)
+                                float2 ui:nodegraph:node:size = (145, 127)
+                            }
+
+                            over "file20_mtlx_scale"
+                            {
+                                float2 ui:nodegraph:node:pos = (563.5, 608)
+                                float2 ui:nodegraph:node:size = (60, 36)
+                            }
+
+                            over "file20_mtlx_offset"
+                            {
+                                float2 ui:nodegraph:node:pos = (822.5, 608)
+                                float2 ui:nodegraph:node:size = (61.5, 36.5)
+                            }
+
+                            over "file23_mtlx"
+                            {
+                                float2 ui:nodegraph:node:pos = (563.5, 99.5)
+                                float2 ui:nodegraph:node:size = (148.5, 199)
+                            }
+
+                            over "file21_mtlx"
+                            {
+                                float2 ui:nodegraph:node:pos = (822.5, 430.25)
+                                float2 ui:nodegraph:node:size = (148.5, 199)
+                            }
+
+                            over "file22_mtlx"
+                            {
+                                float2 ui:nodegraph:node:pos = (304.5, 269)
+                                float2 ui:nodegraph:node:size = (148.5, 199)
+                            }
+                        }
+                    }
+
+                    over "geo"
+                    {
+                        over "lod0"
+                        {
+                            over "magnifying_glass_base_realistic_glass_lod0" (
+                                active = false
+                            )
+                            {
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    def Material "Material"
+    {
+        token outputs:mtlx:surface
+        token outputs:realitykit:vertex
+        prepend token outputs:surface.connect = </Root/Material/UsdPreviewSurface.outputs:surface>
+
+        def Shader "UsdPreviewSurface"
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            token outputs:surface
+        }
+    }
+}
+

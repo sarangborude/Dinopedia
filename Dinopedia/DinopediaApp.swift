@@ -9,13 +9,60 @@ import SwiftUI
 
 @main
 struct DinopediaApp: App {
+    
+    public static let dinoCard = "dinoCard"
+    public static let dinoPortalCard = "dinoPortalCard"
+    public static let triceratopsVolume = "triceratopsVolume"
+    public static let velociraptorVolume = "velociraptorVolume"
+    public static let stegosaurusModel3D = "stegosaurusModel3D"
+    public static let stegosaurusRealityView = "stegosaurusRealityView"
+    public static let brachiosaurusImmersive = "brachiosaurusImmersive"
+    public static let findADino = "FindADino"
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeView()
+            //ContentView()
+        }
+        .defaultSize(width: 1200, height: 1000)
+        
+        WindowGroup(id: Self.dinoCard) {
+            DinoCardView()
+        }
+        .defaultSize(width: 600, height: 650)
+        
+        WindowGroup(id: Self.dinoPortalCard) {
+            DinoPortalCard()
+        }
+        .defaultSize(width: 600, height: 650)
+        
+        WindowGroup(id: Self.triceratopsVolume) {
+            TriceratopsVolumeView()
+        }
+        .windowStyle(.volumetric)
+        .defaultSize(width: 2, height: 2, depth: 2, in: .meters)
+        
+        WindowGroup(id: Self.velociraptorVolume) {
+            VelociraptorVolumeView()
+        }
+        .windowStyle(.volumetric)
+        .defaultSize(width: 2, height: 1, depth: 2, in: .meters)
+
+        ImmersiveSpace(id: Self.stegosaurusModel3D) {
+            ImmersiveStegosaurusView()
+        }
+        
+        ImmersiveSpace(id: Self.stegosaurusRealityView) {
+            ImmersiveAnimatedStegosaurusView()
+        }
+        
+        ImmersiveSpace(id: Self.brachiosaurusImmersive) {
+            ImmersiveBrachiosaurusView()
         }
 
-        ImmersiveSpace(id: "ImmersiveSpace") {
-            ImmersiveView()
+        ImmersiveSpace(id: Self.findADino) {
+            FindADinoView()
         }
+        
     }
 }
