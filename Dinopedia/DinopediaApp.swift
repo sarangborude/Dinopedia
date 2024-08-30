@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct DinopediaApp: App {
     
+    public static let homeView = "HomeView"
     public static let dinoCard = "dinoCard"
     public static let dinoPortalCard = "dinoPortalCard"
     public static let triceratopsVolume = "triceratopsVolume"
@@ -20,9 +21,8 @@ struct DinopediaApp: App {
     public static let findADino = "FindADino"
     
     var body: some Scene {
-        WindowGroup {
+        WindowGroup(id: Self.homeView) {
             HomeView()
-            //ContentView()
         }
         .defaultSize(width: 1200, height: 1000)
         

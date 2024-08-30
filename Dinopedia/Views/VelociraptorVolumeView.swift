@@ -7,12 +7,13 @@
 
 import SwiftUI
 import RealityKit
+import RealityKitContent
 
 struct VelociraptorVolumeView: View {
     
     var body: some View {
         TimelineView(.animation) { context in
-            Model3D(named: "Velociraptor") { model in
+            Model3D(named: "Velociraptor", bundle: realityKitContentBundle) { model in
                 model
                     .resizable()
                     .scaledToFit()
@@ -21,6 +22,8 @@ struct VelociraptorVolumeView: View {
             } placeholder: {
                 ProgressView()
             }
+            //.frame(depth: nil, alignment: .center)
+            //.frame(width: 100)
         }
     }
 }

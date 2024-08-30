@@ -11,6 +11,7 @@ import RealityKitContent
 
 @MainActor
 struct FindADinoView: View {
+    
     @Environment(\.dismissImmersiveSpace) var dismissImmersiveSpace
     
     @State private var nameOfDino = ""
@@ -28,7 +29,7 @@ struct FindADinoView: View {
     @State private var environment: EnvironmentResource!
     
     @State private var magnifyingGlass = Entity()
-
+    
     var body: some View {
         RealityView { content, attachments in
             let dinoWorld = Entity()
@@ -51,7 +52,6 @@ struct FindADinoView: View {
                 }
                 
                 if let portalAnchor = magnifyingGlass.findEntity(named: "PortalAnchor") {
-                    print("adding portal as a child to mag glass")
                     portalAnchor.addChild(dinoViewingPortal)
                 }
                 
@@ -61,7 +61,7 @@ struct FindADinoView: View {
                     dinoViewingPortal.addChild(nameLabel)
                 }
             }
-
+            
             guard let environment = try? await EnvironmentResource(named: "PartiallyCloudySkybox") else {
                 fatalError("Cannot load environment")
             }
@@ -77,7 +77,6 @@ struct FindADinoView: View {
                 content.add(dinoDescription)
                 dinoDescription.position += [0, 1, -0.5]
             }
-
         } update: { content, attachments in
             
         } attachments: {
@@ -88,7 +87,6 @@ struct FindADinoView: View {
                         .padding()
                         .glassBackgroundEffect()
                 }
-                
             }
             
             Attachment(id: "DinoInfo") {
@@ -107,7 +105,7 @@ struct FindADinoView: View {
                 nameOfDino = value.entity.name
                 
                 dinoDescription = dinoDescriptions[nameOfDino] ?? ""
-        }))
+            }))
         .gesture(DragGesture().targetedToEntity(magnifyingGlass).onChanged({ value in
             nameOfDino = ""
             magnifyingGlass.position = value.convert(value.location3D, from: .local, to: magnifyingGlass.parent!)
@@ -123,7 +121,7 @@ struct FindADinoView: View {
     func loadAllDinos() async -> Entity {
         let allDinos = Entity()
         
-        if let brachio = try? await Entity(named: "Brachiosaurus") {
+        if let brachio = try? await Entity(named: "Brachiosaurus", in: realityKitContentBundle) {
             brachio.name = "Brachiosaurus"
             brachio.position += [15, -2, -10]
             brachio.scale *= 30
@@ -136,12 +134,12 @@ struct FindADinoView: View {
             brachio.components.set(InputTargetComponent())
             brachio.components.set(CollisionComponent(shapes: [.generateBox(width: 15, height: 50, depth: 80).offsetBy(translation: [0,25,0])]))
             brachio.components.set(HoverEffectComponent())
-
+            
             let anim = brachio.availableAnimations[0]
             brachio.playAnimation(anim.repeat())
         }
         
-        if let trex = try? await Entity(named: "Trex") {
+        if let trex = try? await Entity(named: "Trex", in: realityKitContentBundle) {
             trex.name = "T-Rex"
             trex.position += [-15, 0, -10]
             trex.scale *= 2
@@ -152,17 +150,17 @@ struct FindADinoView: View {
             trex.components.set(ImageBasedLightReceiverComponent(imageBasedLight: trex))
             
             trex.components.set(InputTargetComponent())
-           
+            
             let collision = CollisionComponent(shapes: [.generateBox(width: 400, height: 400, depth: 400).offsetBy(translation: [0,200,0])])
             trex.components.set(collision)
             
             trex.components.set(HoverEffectComponent())
-
+            
             let anim = trex.availableAnimations[0]
             trex.playAnimation(anim.repeat())
         }
         
-        if let stego = try? await Entity(named: "Stegosaurus") {
+        if let stego = try? await Entity(named: "Stegosaurus", in: realityKitContentBundle) {
             stego.name = "Stegosaurus"
             stego.position += [5, 0, -10]
             stego.scale *= 1
@@ -175,12 +173,12 @@ struct FindADinoView: View {
             stego.components.set(InputTargetComponent())
             stego.components.set(CollisionComponent(shapes: [.generateBox(width: 200, height: 200, depth: 200).offsetBy(translation: [0,100,0])]))
             stego.components.set(HoverEffectComponent())
-
+            
             let anim = stego.availableAnimations[0]
             stego.playAnimation(anim.repeat())
         }
         
-        if let triceratops = try? await Entity(named: "Triceratops") {
+        if let triceratops = try? await Entity(named: "Triceratops", in: realityKitContentBundle) {
             triceratops.name = "Triceratops"
             triceratops.position += [0, 0, -10]
             triceratops.scale *= 1
@@ -193,13 +191,12 @@ struct FindADinoView: View {
             triceratops.components.set(InputTargetComponent())
             triceratops.components.set(CollisionComponent(shapes: [.generateBox(width: 200, height: 200, depth: 200).offsetBy(translation: [0,100,0])]))
             triceratops.components.set(HoverEffectComponent())
-
+            
             let anim = triceratops.availableAnimations[0]
             triceratops.playAnimation(anim.repeat())
         }
         
-        // add velociraptor as an attachment.....
-        if let velociraptor = try? await Entity(named: "Velociraptor") {
+        if let velociraptor = try? await Entity(named: "Velociraptor", in: realityKitContentBundle) {
             velociraptor.name = "Velociraptor"
             velociraptor.position += [-5, 0, -10]
             velociraptor.scale *= 1
@@ -208,7 +205,7 @@ struct FindADinoView: View {
             
             velociraptor.components.set(ImageBasedLightComponent(source: .single(environment), intensityExponent: 2))
             velociraptor.components.set(ImageBasedLightReceiverComponent(imageBasedLight: velociraptor))
-
+            
             velociraptor.components.set(InputTargetComponent())
             velociraptor.components.set(CollisionComponent(shapes: [.generateBox(width: 200, height: 200, depth: 200).offsetBy(translation: [0,100,0])]))
             velociraptor.components.set(HoverEffectComponent())
@@ -219,7 +216,6 @@ struct FindADinoView: View {
         
         return allDinos
     }
-    
     
     func createSkyboxEntity(texture: String) async -> Entity {
         guard let resource = try? await TextureResource(named: texture) else {

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import RealityKit
+import RealityKitContent
 
 struct DinoCardView: View {
     
@@ -17,7 +18,7 @@ struct DinoCardView: View {
             Text("Velociraptor")
                 .font(.extraLargeTitle2)
                 .padding(40)
-                Model3D(named: "Velociraptor") { model in
+                Model3D(named: "Velociraptor", bundle: realityKitContentBundle) { model in
                     model
                         .resizable()
                         .scaledToFit()

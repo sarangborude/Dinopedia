@@ -7,12 +7,13 @@
 
 import SwiftUI
 import RealityKit
+import RealityKitContent
 
 @MainActor
 struct DinoPortalCard: View {
     
     @Environment(\.openWindow) private var openWindow
-
+    
     var body: some View {
         ZStack() {
             RealityView { content in
@@ -22,19 +23,18 @@ struct DinoPortalCard: View {
                 world1.addChild(skybox1)
                 
                 //Add dino
-                if let dino = try? await Entity(named: "Triceratops") {
+                if let dino = try? await Entity(named: "Triceratops", in: realityKitContentBundle) {
                     world1.addChild(dino)
                     dino.position += [0,-0.3, -0.5]
                     dino.scale *= 0.25
-            
+                    
                     //dino.transform.rotation = simd_quatf(angle: .pi/2, axis: [0,1,0])
                     if let anim = dino.availableAnimations.first {
                         dino.playAnimation(anim.repeat())
                     }
-
+                    
                     // the size of the ibl should be very small. mostly hd...
                     if let environment = try? await EnvironmentResource(named: "PartiallyCloudySkybox") {
-                        print("environment ibl loaded")
                         dino.components.set(ImageBasedLightComponent(source: .single(environment), intensityExponent: 1.5))
                         dino.components.set(ImageBasedLightReceiverComponent(imageBasedLight: dino))
                     }
@@ -48,21 +48,19 @@ struct DinoPortalCard: View {
             }
             
             VStack {
-                
                 Button(action: {
                     openWindow(id: DinopediaApp.triceratopsVolume)
                 }, label: {
                     Text("Triceratops")
                         .font(.largeTitle)
                         .padding()
-                        
                 })
                 .glassBackgroundEffect()
                 .padding3D(.back, 1)
                 
-                    Spacer()
+                Spacer()
                 
-                    Text("The Triceratops was a large, herbivorous dinosaur with three distinct facial horns and a bony frill, known for its defensive capabilities during the Late Cretaceous period.")
+                Text("The Triceratops was a large, herbivorous dinosaur with three distinct facial horns and a bony frill, known for its defensive capabilities during the Late Cretaceous period.")
                     .frame(maxWidth: 450)
                     .padding()
                     .glassBackgroundEffect()
@@ -70,11 +68,8 @@ struct DinoPortalCard: View {
             }
             .frame(depth: 600, alignment: .back)
             .frame(width: 600, height: 510)
-            
-            
         }
         .offset(z: 1)
-        //.frame(width: 500, height: 700)        //.glassBackgroundEffect()
     }
     
     func createSkyboxEntity(texture: String) async -> Entity {

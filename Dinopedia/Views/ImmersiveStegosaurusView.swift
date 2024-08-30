@@ -7,10 +7,15 @@
 
 import SwiftUI
 import RealityKit
+import RealityKitContent
 
 struct ImmersiveStegosaurusView: View {
     
     @Environment(\.dismissImmersiveSpace) var dismissImmersiveSpace
+    
+    @Environment(\.openWindow) var openWindow
+    
+    @Environment(\.dismissWindow) var dismissWindow
     
     @PhysicalMetric(from: .meters) private var zOffsetOfDino = -3
     @PhysicalMetric(from: .meters) private var yOffsetOfDino =  -1
@@ -40,7 +45,7 @@ struct ImmersiveStegosaurusView: View {
     @GestureState private var manipulationState = ManipulationState()
     
     var body: some View {
-        Model3D(named: "Stegosaurus") { model in
+        Model3D(named: "Stegosaurus", bundle: realityKitContentBundle) { model in
             model
                 .resizable()
                 .scaledToFit()
@@ -51,19 +56,18 @@ struct ImmersiveStegosaurusView: View {
                 .offset(z:  manipulationState.transform.translation.z)
                 .offset(y: yOffsetOfDino) // -1500 talk about the pain here of using point value
                 .offset(z: zOffsetOfDino) // -5000
-
+            
                 .overlay(alignment: .topLeading) {
                     VStack {
                         Text("The Stegosaurus was a large, herbivorous dinosaur that lived during the Late Jurassic period, about 155 to 150 million years ago. It is easily recognized by the distinctive double row of large, plate-like structures along its back and the spiked tail, known as the thagomizer, which it likely used for defense against predators. Despite its formidable appearance, the Stegosaurus had a small brain relative to its body size, indicating it was not as intelligent as some other dinosaurs.")
                             .font(.largeTitle)
                             .frame(width: 700)
                             .frame(width: 700)
-
+                        
                         Button(action: {
                             Task {
                                 await dismissImmersiveSpace()
                             }
-                           
                         }, label: {
                             Image(systemName: "xmark")
                                 .font(.largeTitle)
@@ -72,8 +76,8 @@ struct ImmersiveStegosaurusView: View {
                     }
                     .padding(50)
                     .glassBackgroundEffect()
-                        .offset(z: zOffsetOfCard)
-                        .offset(x: xOffsetOfCard, y: yOffsetOfCard)
+                    .offset(z: zOffsetOfCard)
+                    .offset(x: xOffsetOfCard, y: yOffsetOfCard)
                 }
         } placeholder: {
             ProgressView()
@@ -83,7 +87,12 @@ struct ImmersiveStegosaurusView: View {
             state.active = true
             state.transform = value
         })
-        
+        .onAppear {
+            dismissWindow(id: "HomeView")
+        }
+        .onDisappear {
+            openWindow(id: DinopediaApp.homeView)
+        }
     }
 }
 
