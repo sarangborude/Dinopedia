@@ -6,14 +6,16 @@
 //
 
 import SwiftUI
+
 @MainActor
 struct HomeView: View {
+    
     @Environment(\.openWindow) private var openWindow
     @Environment(\.openImmersiveSpace) private var openImmersiveSpace
     @Environment(\.dismissImmersiveSpace) private var dismissImmersiveSpace
+    
     var body: some View {
         VStack {
-            
             Text("Welcome to Dinopedia")
                 .font(.extraLargeTitle)
             

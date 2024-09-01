@@ -22,8 +22,8 @@ struct VelociraptorVolumeView: View {
             } placeholder: {
                 ProgressView()
             }
-            //.frame(depth: nil, alignment: .center)
-            //.frame(width: 100)
+            //.frame(depth: 5000, alignment: .center)
+            //.frame(width: 5000, height: 5000)
         }
     }
 }

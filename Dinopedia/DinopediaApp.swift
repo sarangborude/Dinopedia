@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct DinopediaApp: App {
     
-    public static let homeView = "HomeView"
+    public static let homeView = "homeView"
     public static let dinoCard = "dinoCard"
     public static let dinoPortalCard = "dinoPortalCard"
     public static let triceratopsVolume = "triceratopsVolume"

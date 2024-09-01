@@ -16,6 +16,7 @@ struct DinoPortalCard: View {
     
     var body: some View {
         ZStack() {
+            
             RealityView { content in
                 let world1 = Entity()
                 world1.components.set(WorldComponent())

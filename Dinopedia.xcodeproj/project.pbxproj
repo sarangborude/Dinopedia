@@ -62,6 +62,7 @@
 			isa = PBXGroup;
 			children = (
 				275C37862C7A239600B8ECD6 /* Dinopedia */,
+				276AF22A2C7CBE3F00D82207 /* EnvironmentLight.skybox */,
 				275C37872C7A239600B8ECD6 /* Packages */,
 				275C37852C7A239600B8ECD6 /* Products */,
 			);
@@ -78,7 +79,6 @@
 		275C37862C7A239600B8ECD6 /* Dinopedia */ = {
 			isa = PBXGroup;
 			children = (
-				276AF22A2C7CBE3F00D82207 /* EnvironmentLight.skybox */,
 				275C378B2C7A239600B8ECD6 /* DinopediaApp.swift */,
 				275C37B52C7B726100B8ECD6 /* Views */,
 				275C37912C7A239700B8ECD6 /* Assets.xcassets */,

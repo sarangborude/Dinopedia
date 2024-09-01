@@ -45,6 +45,7 @@ struct ImmersiveStegosaurusView: View {
     @GestureState private var manipulationState = ManipulationState()
     
     var body: some View {
+        
         Model3D(named: "Stegosaurus", bundle: realityKitContentBundle) { model in
             model
                 .resizable()
@@ -53,7 +54,7 @@ struct ImmersiveStegosaurusView: View {
                 .rotation3DEffect(.degrees(90), axis: .y)
                 .rotation3DEffect(manipulationState.transform.rotation ?? .identity)
                 .offset(x: manipulationState.transform.translation.x, y: manipulationState.transform.translation.y)
-                .offset(z:  manipulationState.transform.translation.z)
+                .offset(z: manipulationState.transform.translation.z)
                 .offset(y: yOffsetOfDino) // -1500 talk about the pain here of using point value
                 .offset(z: zOffsetOfDino) // -5000
             
@@ -88,7 +89,7 @@ struct ImmersiveStegosaurusView: View {
             state.transform = value
         })
         .onAppear {
-            dismissWindow(id: "HomeView")
+            dismissWindow(id: DinopediaApp.homeView)
         }
         .onDisappear {
             openWindow(id: DinopediaApp.homeView)

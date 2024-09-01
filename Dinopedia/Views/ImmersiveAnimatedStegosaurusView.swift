@@ -57,7 +57,7 @@ struct ImmersiveAnimatedStegosaurusView: View {
             }
         }
         .onAppear {
-            dismissWindow(id: "HomeView")
+            dismissWindow(id: DinopediaApp.homeView)
         }
         .onDisappear {
             openWindow(id: DinopediaApp.homeView)
