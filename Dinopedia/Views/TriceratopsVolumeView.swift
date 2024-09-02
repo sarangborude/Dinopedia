@@ -20,7 +20,14 @@ struct TriceratopsVolumeView: View {
                 if let anim = triceratops.availableAnimations.first {
                     triceratops.playAnimation(anim.repeat())
                 }
-                triceratops.components.set(GroundingShadowComponent(castsShadow: true))
+                
+                // You need to put the GroundingShadowComponent only on the entities that have the model component.
+                // so you enumerate the USDZ file hierarchy and set the grounding shadow component on the right entity.
+                triceratops.enumerateHierarchy { entity, stop in
+                    if entity is ModelEntity{
+                        entity.components.set(GroundingShadowComponent(castsShadow: true))
+                    }
+                }
                 content.add(triceratops)
             }
         }
@@ -30,3 +37,4 @@ struct TriceratopsVolumeView: View {
 #Preview {
     TriceratopsVolumeView()
 }
+

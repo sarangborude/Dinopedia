@@ -29,6 +29,12 @@ struct ImmersiveAnimatedStegosaurusView: View {
                 let anim = stego.availableAnimations[1]
                 stego.playAnimation(anim.repeat())
                 
+                stego.enumerateHierarchy { entity, stop in
+                    if entity is ModelEntity{
+                        entity.components.set(GroundingShadowComponent(castsShadow: true))
+                    }
+                }
+                
                 if let infoCard = attachments.entity(for: "StegoInfo") {
                     content.add(infoCard)
                     infoCard.position += [1, 0.5, -1.7] // meters
