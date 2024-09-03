@@ -63,8 +63,7 @@ struct ImmersiveStegosaurusView: View {
                         Text("The Stegosaurus was a large, herbivorous dinosaur that lived during the Late Jurassic period, about 155 to 150 million years ago. It is easily recognized by the distinctive double row of large, plate-like structures along its back and the spiked tail, known as the thagomizer, which it likely used for defense against predators. Despite its formidable appearance, the Stegosaurus had a small brain relative to its body size, indicating it was not as intelligent as some other dinosaurs.")
                             .font(.largeTitle)
                             .frame(width: 700)
-                            .frame(width: 700)
-                        
+
                         Button(action: {
                             Task {
                                 await dismissImmersiveSpace()

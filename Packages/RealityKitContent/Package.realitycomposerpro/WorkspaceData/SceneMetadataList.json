@@ -39,6 +39,14 @@
     "objectMetadataList" : [
       [
         "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
         "Sphere_Left"
       ],
@@ -54,19 +62,115 @@
       {
         "isExpanded" : true,
         "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
       }
     ]
   },
   "B9213792-A1EE-459E-BDE5-CCBFF7714316" : {
     "objectMetadataList" : [
+      [
+        "B9213792-A1EE-459E-BDE5-CCBFF7714316",
+        "Root",
+        "Triceratops"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "B9213792-A1EE-459E-BDE5-CCBFF7714316",
+        "Root",
+        "Triceratops",
+        "SkinnedMeshes",
+        "Sketchfab_model",
+        "root",
+        "GLTF_SceneRootNode"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "B9213792-A1EE-459E-BDE5-CCBFF7714316",
+        "Root",
+        "Triceratops",
+        "SkinnedMeshes",
+        "Sketchfab_model"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "B9213792-A1EE-459E-BDE5-CCBFF7714316",
+        "Root",
+        "Triceratops",
+        "SkinnedMeshes"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "B9213792-A1EE-459E-BDE5-CCBFF7714316",
+        "Root",
+        "Magnifying_Glass",
+        "geom",
+        "realistic"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "B9213792-A1EE-459E-BDE5-CCBFF7714316",
+        "Root",
+        "Triceratops",
+        "SkinnedMeshes",
+        "Sketchfab_model",
+        "root",
+        "GLTF_SceneRootNode",
+        "Triceratop_Amature_44"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "B9213792-A1EE-459E-BDE5-CCBFF7714316",
+        "Root",
+        "Triceratops",
+        "SkinnedMeshes",
+        "Sketchfab_model",
+        "root",
+        "GLTF_SceneRootNode",
+        "Triceratop_Amature_44",
+        "GLTF_created_0",
+        "GLTF_created_0_rootJoint"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "B9213792-A1EE-459E-BDE5-CCBFF7714316",
+        "Root",
+        "MagnifyingGlass"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "B9213792-A1EE-459E-BDE5-CCBFF7714316",
+        "Root",
+        "MagnifyingGlass",
+        "Magnifying_Glass",
+        "geom"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
       [
         "B9213792-A1EE-459E-BDE5-CCBFF7714316",
         "Root",
@@ -81,7 +185,14 @@
       },
       [
         "B9213792-A1EE-459E-BDE5-CCBFF7714316",
-        "Root"
+        "Root",
+        "Triceratops",
+        "SkinnedMeshes",
+        "Sketchfab_model",
+        "root",
+        "GLTF_SceneRootNode",
+        "Triceratop_Amature_44",
+        "GLTF_created_0"
       ],
       {
         "isExpanded" : true,
@@ -102,10 +213,7 @@
       },
       [
         "B9213792-A1EE-459E-BDE5-CCBFF7714316",
-        "Root",
-        "MagnifyingGlass",
-        "Magnifying_Glass",
-        "geom"
+        "Root"
       ],
       {
         "isExpanded" : true,
@@ -116,24 +224,6 @@
         "Root",
         "Magnifying_Glass",
         "geom"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "B9213792-A1EE-459E-BDE5-CCBFF7714316",
-        "Root",
-        "InvisibleMaterial"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "B9213792-A1EE-459E-BDE5-CCBFF7714316",
-        "Root",
-        "MagnifyingGlass"
       ],
       {
         "isExpanded" : true,
@@ -144,7 +234,8 @@
         "Root",
         "Magnifying_Glass",
         "geom",
-        "realistic"
+        "realistic",
+        "materials"
       ],
       {
         "isExpanded" : true,
@@ -165,10 +256,19 @@
       [
         "B9213792-A1EE-459E-BDE5-CCBFF7714316",
         "Root",
-        "Magnifying_Glass",
-        "geom",
-        "realistic",
-        "materials"
+        "InvisibleMaterial"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "B9213792-A1EE-459E-BDE5-CCBFF7714316",
+        "Root",
+        "Triceratops",
+        "SkinnedMeshes",
+        "Sketchfab_model",
+        "root"
       ],
       {
         "isExpanded" : true,
@@ -180,7 +280,8 @@
     "objectMetadataList" : [
       [
         "CB766F92-EE55-4A63-9401-E7B8C009764D",
-        "Root"
+        "Root",
+        "GridMaterial"
       ],
       {
         "isExpanded" : true,
@@ -188,8 +289,7 @@
       },
       [
         "CB766F92-EE55-4A63-9401-E7B8C009764D",
-        "Root",
-        "GridMaterial"
+        "Root"
       ],
       {
         "isExpanded" : true,
