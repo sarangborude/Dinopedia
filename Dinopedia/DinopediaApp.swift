@@ -18,7 +18,7 @@ struct DinopediaApp: App {
     public static let stegosaurusModel3D = "stegosaurusModel3D"
     public static let stegosaurusRealityView = "stegosaurusRealityView"
     public static let brachiosaurusImmersive = "brachiosaurusImmersive"
-    public static let findADino = "FindADino"
+    public static let findADino = "findADino"
     
     var body: some Scene {
         WindowGroup(id: Self.homeView) {
