@@ -12,9 +12,7 @@ import RealityKitContent
 struct ImmersiveStegosaurusView: View {
     
     @Environment(\.dismissImmersiveSpace) var dismissImmersiveSpace
-    
     @Environment(\.openWindow) var openWindow
-    
     @Environment(\.dismissWindow) var dismissWindow
     
     @PhysicalMetric(from: .meters) private var zOffsetOfDino = -3

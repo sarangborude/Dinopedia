@@ -13,9 +13,7 @@ import RealityKitContent
 struct ImmersiveBrachiosaurusView: View {
     
     @Environment(\.dismissImmersiveSpace) var dismissImmersiveSpace
-    
     @Environment(\.openWindow) var openWindow
-    
     @Environment(\.dismissWindow) var dismissWindow
     
     @PhysicalMetric(from: .meters) var smallDinoWidth = 0.2

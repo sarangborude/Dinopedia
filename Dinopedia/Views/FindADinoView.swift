@@ -15,7 +15,6 @@ struct FindADinoView: View {
     @Environment(\.dismissImmersiveSpace) var dismissImmersiveSpace
     
     @State private var nameOfDino = ""
-    
     @State private var dinoDescription = ""
     
     let dinoDescriptions = [
@@ -27,7 +26,6 @@ struct FindADinoView: View {
     ]
     
     @State private var environment: EnvironmentResource!
-    
     @State private var magnifyingGlass = Entity()
     
     var body: some View {

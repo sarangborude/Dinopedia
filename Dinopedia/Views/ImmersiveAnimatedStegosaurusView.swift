@@ -12,9 +12,7 @@ import RealityKitContent
 struct ImmersiveAnimatedStegosaurusView: View {
     
     @Environment(\.dismissImmersiveSpace) var dismissImmersiveSpace
-    
     @Environment(\.openWindow) var openWindow
-    
     @Environment(\.dismissWindow) var dismissWindow
     
     var body: some View {
