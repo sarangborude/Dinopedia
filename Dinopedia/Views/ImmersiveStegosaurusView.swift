@@ -35,6 +35,19 @@ struct ImmersiveStegosaurusView: View {
             }
     }
     
+    @State private var manipulatedTransform = AffineTransform3D()
+    @State private var initialManipulationTransform = AffineTransform3D()
+    @State private var isInitialTransformStored = false
+    
+    @State private var scale: Double = 1
+    @State private var initialScale: Double = 1
+    @State private var rotation: Rotation3D = .identity
+    @State private var initialRotation: Rotation3D = .identity
+    @State private var translation: Vector3D = .zero
+    @State private var initialTranslation: Vector3D = .zero
+    
+    @State private var isGestureStarted = false
+    
     struct ManipulationState {
         var transform: AffineTransform3D = .identity
         var active: Bool = false
@@ -48,20 +61,39 @@ struct ImmersiveStegosaurusView: View {
             model
                 .resizable()
                 .scaledToFit()
+            
+            // Order of manipulations below matter always Scale first, then rotate, then translate
+            
+            // Scaling
                 .scaleEffect(manipulationState.transform.scale.width)
+            // Uncomment the line below after commenting the above manipulations if you want your manipulation to not revert after manipulation ends
+                //.scaleEffect(scale)
+            
+            // Rotation
+            // Initial rotation
                 .rotation3DEffect(.degrees(90), axis: .y)
+            
                 .rotation3DEffect(manipulationState.transform.rotation ?? .identity)
-                .offset(x: manipulationState.transform.translation.x, y: manipulationState.transform.translation.y)
-                .offset(z: manipulationState.transform.translation.z)
+            // Uncomment the line below after commenting the above manipulations if you want your manipulation to not revert after manipulation ends
+                //.rotation3DEffect(rotation)
+            
+            // Translation
+            // Initial offset
                 .offset(y: yOffsetOfDino) // -1500 talk about the pain here of using point value
                 .offset(z: zOffsetOfDino) // -5000
             
+            // Uncomment the line below after commenting the above manipulations if you want your manipulation to not revert after manipulation ends
+                .offset(x: manipulationState.transform.translation.x, y: manipulationState.transform.translation.y)
+                .offset(z: manipulationState.transform.translation.z)
+                //.offset(x: translation.x, y: translation.y)
+                //.offset(z: translation.z)
+             
                 .overlay(alignment: .topLeading) {
                     VStack {
                         Text("The Stegosaurus was a large, herbivorous dinosaur that lived during the Late Jurassic period, about 155 to 150 million years ago. It is easily recognized by the distinctive double row of large, plate-like structures along its back and the spiked tail, known as the thagomizer, which it likely used for defense against predators. Despite its formidable appearance, the Stegosaurus had a small brain relative to its body size, indicating it was not as intelligent as some other dinosaurs.")
                             .font(.largeTitle)
                             .frame(width: 700)
-
+                        
                         Button(action: {
                             Task {
                                 await dismissImmersiveSpace()
@@ -81,10 +113,45 @@ struct ImmersiveStegosaurusView: View {
             ProgressView()
         }
         .animation(.easeInOut, value: manipulationState.transform)
-        .gesture(manipulationGesture.updating($manipulationState) { value, state, _ in
+        
+        //Only uncomment one set of gesture(s) below
+        
+        //******** Using the updating closure along with manipulation state reverts the manipulations to initial position after gesture ends *****
+        
+        .gesture(manipulationGesture.updating($manipulationState, body: { value, state, _ in
             state.active = true
             state.transform = value
-        })
+        }))
+        
+        //******* Uncomment the gestures below after commenting the one above.
+        // ********* Use drag gesture separately along with simulataneous rotate and scale. this works the best if you want to keep your manipulations
+//        .gesture(DragGesture().targetedToAnyEntity()
+//            .onChanged({ value in
+//                if(!isGestureStarted) {
+//                    isGestureStarted = true
+//                    initialTranslation = translation
+//                }
+//                translation = initialTranslation + value.translation3D
+//            })
+//                .onEnded({ value in
+//                    isGestureStarted = false
+//                })
+//        )
+//        .gesture(RotateGesture3D().simultaneously(with: MagnifyGesture()).targetedToAnyEntity()
+//            .onChanged({ value in
+//                if(!isGestureStarted) {
+//                    isGestureStarted = true
+//                    initialRotation = rotation
+//                    initialScale = scale
+//                }
+//                rotation = initialRotation * (value.first?.rotation ?? .identity)
+//                scale = initialScale * (value.second?.magnification ?? 1)
+//            })
+//                .onEnded({ value in
+//                    isGestureStarted = false
+//                }))
+        
+        
         .onAppear {
             dismissWindow(id: DinopediaApp.homeView)
         }

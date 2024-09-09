@@ -27,8 +27,8 @@ struct ImmersiveBrachiosaurusView: View {
             }
             
             if let brachio = try? await Entity(named: "Brachiosaurus", in: realityKitContentBundle) {
-                brachio.position += [2, 0, -4]
-                brachio.scale *= 10
+                brachio.position += [2, 0, -8]
+                brachio.scale *= 20
                 brachio.transform.rotation = simd_quatf(angle: deg2rad(-45), axis: [0,1,0])
                 content.add(brachio)
                 
