@@ -8,6 +8,7 @@
 import SwiftUI
 
 @main
+@MainActor
 struct DinopediaApp: App {
     
     public static let homeView = "homeView"
@@ -19,6 +20,8 @@ struct DinopediaApp: App {
     public static let stegosaurusRealityView = "stegosaurusRealityView"
     public static let brachiosaurusImmersive = "brachiosaurusImmersive"
     public static let findADino = "findADino"
+    
+    @State var headsetPositionManager = HeadsetPositionManager()
     
     var body: some Scene {
         WindowGroup(id: Self.homeView) {
@@ -62,6 +65,7 @@ struct DinopediaApp: App {
 
         ImmersiveSpace(id: Self.findADino) {
             FindADinoView()
+                .environment(headsetPositionManager)
         }
         
     }

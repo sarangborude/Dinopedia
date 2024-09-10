@@ -24,6 +24,7 @@
 		276AF22F2C7CC39A00D82207 /* FindADinoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276AF22E2C7CC39A00D82207 /* FindADinoView.swift */; };
 		276AF2312C7E188C00D82207 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276AF2302C7E188C00D82207 /* HomeView.swift */; };
 		276AF2332C86367300D82207 /* Entity + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276AF2322C86367300D82207 /* Entity + Extension.swift */; };
+		276AF2352C908B4000D82207 /* HeadsetPositionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276AF2342C908B4000D82207 /* HeadsetPositionManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		276AF22E2C7CC39A00D82207 /* FindADinoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindADinoView.swift; sourceTree = "<group>"; };
 		276AF2302C7E188C00D82207 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		276AF2322C86367300D82207 /* Entity + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entity + Extension.swift"; sourceTree = "<group>"; };
+		276AF2342C908B4000D82207 /* HeadsetPositionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadsetPositionManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 			children = (
 				275C378B2C7A239600B8ECD6 /* DinopediaApp.swift */,
 				276AF2322C86367300D82207 /* Entity + Extension.swift */,
+				276AF2342C908B4000D82207 /* HeadsetPositionManager.swift */,
 				275C37B52C7B726100B8ECD6 /* Views */,
 				275C37912C7A239700B8ECD6 /* Assets.xcassets */,
 				275C37962C7A239700B8ECD6 /* Info.plist */,
@@ -206,6 +209,7 @@
 				275C37CB2C7BF0E000B8ECD6 /* ImmersiveAnimatedStegosaurusView.swift in Sources */,
 				275C37B42C7B724500B8ECD6 /* TriceratopsVolumeView.swift in Sources */,
 				275C379D2C7A25F200B8ECD6 /* DinoCardView.swift in Sources */,
+				276AF2352C908B4000D82207 /* HeadsetPositionManager.swift in Sources */,
 				275C37A42C7AA76D00B8ECD6 /* DinoPortalCard.swift in Sources */,
 				275C37C92C7BE51100B8ECD6 /* ImmersiveStegosaurusView.swift in Sources */,
 				275C378C2C7A239600B8ECD6 /* DinopediaApp.swift in Sources */,

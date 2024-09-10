@@ -90,7 +90,6 @@ struct ImmersiveBrachiosaurusView: View {
                 } placeholder: {
                     ProgressView()
                 }
-                
                 .frame(depth: nil, alignment: .center)
                 .frame(width: smallDinoWidth)
             }

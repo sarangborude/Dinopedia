@@ -13,6 +13,9 @@ import RealityKitContent
 struct FindADinoView: View {
     
     @Environment(\.dismissImmersiveSpace) var dismissImmersiveSpace
+    @Environment(HeadsetPositionManager.self) var headsetPositionManager
+    @Environment(\.dismissWindow) var dismissWindow
+    @Environment(\.openWindow) var openWindow
     
     @State private var nameOfDino = ""
     @State private var dinoDescription = ""
@@ -45,8 +48,8 @@ struct FindADinoView: View {
                 if let magnifyingGlass = magnifyingGlassScene.findEntity(named: "MagnifyingGlass") {
                     self.magnifyingGlass = magnifyingGlass
                     content.add(magnifyingGlass)
-                    magnifyingGlass.position = [0, 1, -2]
-                    magnifyingGlass.scale *= 2
+                    magnifyingGlass.position = [0, 1, -1]
+                    //magnifyingGlass.scale *= 2
                 }
                 
                 if let portalAnchor = magnifyingGlass.findEntity(named: "PortalAnchor") {
@@ -73,7 +76,7 @@ struct FindADinoView: View {
             
             if let dinoDescription = attachments.entity(for: "DinoInfo") {
                 content.add(dinoDescription)
-                dinoDescription.position += [0, 1, -0.5]
+                dinoDescription.position += [0, 0.7, -0.7]
             }
         } update: { content, attachments in
             
@@ -88,13 +91,33 @@ struct FindADinoView: View {
             }
             
             Attachment(id: "DinoInfo") {
-                if(dinoDescription != "") {
-                    Text(dinoDescription)
-                        .font(.caption)
-                        .padding(20)
-                        .glassBackgroundEffect()
-                        .frame(width: 400)
+                
+                VStack(spacing: 20) {
+                    Text("Welcome to find a dino!")
+                        .font(.title)
+                    Text("Drag the handle of the magnifying glass to move around and do a spatial tap on the dinos to see their info")
+                        .font(.subheadline)
+                        .foregroundStyle(Color.secondary)
+                    if(dinoDescription != "") {
+                        Text(dinoDescription)
+                            .font(.caption)
+                    }
+                    
+                    Button(action: {
+                        Task {
+                            await dismissImmersiveSpace()
+                        }
+                        
+                    }, label: {
+                        Image(systemName: "xmark")
+                            .font(.headline)
+                            .padding()
+                    })
+                    
                 }
+                .padding(20)
+                .glassBackgroundEffect()
+                .frame(width: 450)
             }
         }
         .gesture(SpatialTapGesture()
@@ -107,13 +130,52 @@ struct FindADinoView: View {
         .gesture(DragGesture().targetedToEntity(magnifyingGlass).onChanged({ value in
             nameOfDino = ""
             magnifyingGlass.position = value.convert(value.location3D, from: .local, to: magnifyingGlass.parent!)
+            
+            // I used a fake camera pos in the video but in this example using ARKit to get device position
+            // Take a look at HeadsetPositionManager for the entire dance of getting the camera position
+            // With billboard component, you will not need any of this.
+            
             //fake camera position
-            let cameraPos = SIMD3<Float>(0, 1, 0)
-            magnifyingGlass.look(at: cameraPos, from: magnifyingGlass.position, upVector: [0,1,0], relativeTo: nil)
+            //let cameraPos = SIMD3<Float>(0, 1, 0)
+            
+            let offsettedHeadsetPosition = headsetPositionManager.deviceLocation.position + [0, -0.3, 0]
+            // offsetting headset position so we get a better angle when manipulating the magnifying glass
+            
+            magnifyingGlass.look(at: offsettedHeadsetPosition,
+                                 from: magnifyingGlass.position,
+                                 upVector: [0,1,0], relativeTo: nil)
             if let portal = magnifyingGlass.findEntity(named: "PortalAnchor") {
                 portal.transform.rotation = simd_quatf(angle: deg2rad(180), axis: [0,1,0])
             }
         }))
+        .onAppear {
+            dismissWindow(id: DinopediaApp.homeView)
+        }
+        .onDisappear {
+            openWindow(id: DinopediaApp.homeView)
+        }
+        
+        // all the task below are for getting the headset position
+        // you don't need this if you are using the billboard component in Vision OS 2
+        .task {
+            await headsetPositionManager.monitorSessionEvents()
+        }
+        .task {
+            do {
+                if headsetPositionManager.dataProvidersAreSupported && headsetPositionManager.isReadyToRun {
+                    try await headsetPositionManager.session.run([headsetPositionManager.worldTracking])
+                } else {
+                    await dismissImmersiveSpace()
+                }
+            } catch {
+                logger.error("Failed to start session: \(error)")
+                await dismissImmersiveSpace()
+                fatalError()
+            }
+        }
+        .task {
+            await headsetPositionManager.processDeviceAnchorUpdates()
+        }
     }
     
     func loadAllDinos() async -> Entity {
