@@ -35,10 +35,6 @@ struct ImmersiveStegosaurusView: View {
             }
     }
     
-    @State private var manipulatedTransform = AffineTransform3D()
-    @State private var initialManipulationTransform = AffineTransform3D()
-    @State private var isInitialTransformStored = false
-    
     @State private var scale: Double = 1
     @State private var initialScale: Double = 1
     @State private var rotation: Rotation3D = .identity
@@ -123,8 +119,10 @@ struct ImmersiveStegosaurusView: View {
             state.transform = value
         }))
         
-        //******* Uncomment the gestures below after commenting the one above.
-        // ********* Use drag gesture separately along with simulataneous rotate and scale. this works the best if you want to keep your manipulations
+        // Uncomment the gestures below after commenting the one above.
+        // Use drag gesture separately along with simulataneous rotate and scale. this works the best if you want to keep your manipulations
+        // You can use the combine simultaneous gesture from above but it will give your rotation issues when you try to manipulate the entire transform in one go
+        
 //        .gesture(DragGesture().targetedToAnyEntity()
 //            .onChanged({ value in
 //                if(!isGestureStarted) {
