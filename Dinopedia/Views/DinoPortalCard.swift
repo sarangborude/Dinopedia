@@ -35,6 +35,7 @@ struct DinoPortalCard: View {
                     }
                     
                     // the size of the ibl should be very small. mostly hd...
+                    // This is the name of the folder with the .skybox extension, not the file name. 
                     if let environment = try? await EnvironmentResource(named: "PartiallyCloudySkybox") {
                         dino.components.set(ImageBasedLightComponent(source: .single(environment), intensityExponent: 1.5))
                         dino.components.set(ImageBasedLightReceiverComponent(imageBasedLight: dino))

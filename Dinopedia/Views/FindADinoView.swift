@@ -70,6 +70,7 @@ struct FindADinoView: View {
                 }
             }
             
+            // This is the name of the folder with the .skybox extension, not the file name.
             guard let environment = try? await EnvironmentResource(named: "PartiallyCloudySkybox") else {
                 fatalError("Cannot load environment")
             }

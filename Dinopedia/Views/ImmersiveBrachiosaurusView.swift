@@ -22,6 +22,7 @@ struct ImmersiveBrachiosaurusView: View {
         RealityView { content, attachments in
             
             // the resolution of the ibl should be very small. mostly hd...
+            // This is the name of the folder with the .skybox extension, not the file name.
             guard let environment = try? await EnvironmentResource(named: "PartiallyCloudySkybox") else {
                 fatalError("Cannot load environment light")
             }
