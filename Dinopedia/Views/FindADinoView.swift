@@ -19,6 +19,7 @@ struct FindADinoView: View {
     
     @State private var nameOfDino = ""
     @State private var dinoDescription = ""
+    @State private var isDinoDescriptionVisible = false
     
     let dinoDescriptions = [
         "Brachiosaurus" : "The Brachiosaurus was a massive, long-necked herbivorous dinosaur that lived during the Late Jurassic period, around 154 to 153 million years ago. Characterized by its unique posture with forelimbs longer than its hind limbs, it could reach towering heights to browse on vegetation that other herbivores couldn’t access. With its long neck and small head, the Brachiosaurus is often depicted as one of the most iconic dinosaurs, representing the classic image of a giant, gentle giant roaming ancient forests. Its enormous size, combined with a relatively slow metabolism, likely helped it avoid most predators.",
@@ -61,6 +62,12 @@ struct FindADinoView: View {
                     nameLabel.position += [0, 0, -0.19]
                     dinoViewingPortal.addChild(nameLabel)
                 }
+                
+                if let dinoDescription = attachments.entity(for: "DinoInfo") {
+                    dinoViewingPortal.addChild(dinoDescription)
+                    dinoDescription.transform.rotation = simd_quatf(angle: deg2rad(-90), axis: [1,0,0])
+                    dinoDescription.position += [0.2, 0, 0.3]
+                }
             }
             
             guard let environment = try? await EnvironmentResource(named: "PartiallyCloudySkybox") else {
@@ -74,10 +81,13 @@ struct FindADinoView: View {
             dinoWorld.addChild(skybox)
             dinoWorld.addChild(await loadAllDinos())
             
-            if let dinoDescription = attachments.entity(for: "DinoInfo") {
-                content.add(dinoDescription)
-                dinoDescription.position += [0, 0.7, -0.7]
+            if let experienceInfo = attachments.entity(for: "ExperienceInfo") {
+                content.add(experienceInfo)
+                experienceInfo.transform.rotation = simd_quatf(angle: deg2rad(-45), axis: [1,0,0])
+                experienceInfo.position += [0, 0.5, -0.7]
             }
+            
+           
         } update: { content, attachments in
             
         } attachments: {
@@ -91,44 +101,55 @@ struct FindADinoView: View {
             }
             
             Attachment(id: "DinoInfo") {
-                
-                VStack(spacing: 20) {
-                    Text("Welcome to find a dino!")
-                        .font(.title)
-                    Text("Drag the handle of the magnifying glass to move around and do a spatial tap on the dinos to see their info")
-                        .font(.subheadline)
-                        .foregroundStyle(Color.secondary)
-                    if(dinoDescription != "") {
-                        Text(dinoDescription)
-                            .font(.caption)
-                    }
-                    
-                    Button(action: {
-                        Task {
-                            await dismissImmersiveSpace()
+                if(isDinoDescriptionVisible) {
+                    VStack(spacing: 20) {
+                        if(dinoDescription != "") {
+                            Text(dinoDescription)
+                                .font(.callout)
+                                .animation(.easeInOut)
                         }
-                        
-                    }, label: {
-                        Image(systemName: "xmark")
-                            .font(.headline)
-                            .padding()
-                    })
-                    
+                    }
+                    .padding(20)
+                    .glassBackgroundEffect()
+                    .frame(width: 450)
                 }
-                .padding(20)
-                .glassBackgroundEffect()
-                .frame(width: 450)
+            }
+            
+            Attachment(id: "ExperienceInfo") {
+                    VStack(spacing: 20) {
+                        Text("Welcome to find a dino!")
+                            .font(.title)
+                        Text("Drag the handle of the magnifying glass to move around and do a spatial tap on the dinos to see their info")
+                            .font(.subheadline)
+                            .foregroundStyle(Color.secondary)
+                        
+                        Button(action: {
+                            Task {
+                                await dismissImmersiveSpace()
+                            }
+                            
+                        }, label: {
+                            Image(systemName: "xmark")
+                                .font(.headline)
+                                .padding()
+                        })
+                        
+                    }
+                    .padding(20)
+                    .glassBackgroundEffect()
+                    .frame(width: 450)
             }
         }
         .gesture(SpatialTapGesture()
             .targetedToAnyEntity()
             .onEnded({ value in
                 nameOfDino = value.entity.name
-                
+                isDinoDescriptionVisible = true
                 dinoDescription = dinoDescriptions[nameOfDino] ?? ""
             }))
         .gesture(DragGesture().targetedToEntity(magnifyingGlass).onChanged({ value in
             nameOfDino = ""
+            isDinoDescriptionVisible = false
             magnifyingGlass.position = value.convert(value.location3D, from: .local, to: magnifyingGlass.parent!)
             
             // I used a fake camera pos in the video but in this example using ARKit to get device position
