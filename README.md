@@ -3,8 +3,8 @@
 This project goes with the three part youtube tutorial series on Using SwiftUI to add 2D and 3D content to your Apple Vision Pro Apps. 
 
 ### Part 1 : https://youtu.be/Vc-1j8iD21w
-### Part 2 : Coming Soon
-### Part 3 : Coming Soon
+### Part 2 : https://youtu.be/NhPGAPlk1vA
+### Part 3 : https://youtu.be/_YFjrOGIrvY
 
 # 3D Model Attribution
 
